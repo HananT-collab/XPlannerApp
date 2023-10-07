@@ -1,0 +1,50 @@
+<div id="x-shell-header" class="card">
+    <p-megaMenu [model]="leftMegaMenuItems" styleClass="flex">
+        <ng-template pTemplate="start" class="x-float-left x-dflex">
+            <img src="../../../assets/XPlannerLogoNegative.svg" style="height: 60px; width: 158px;"  class="mr-2" />
+            <p-divider layout="vertical" ></p-divider>
+        </ng-template>
+    </p-megaMenu>
+
+    <div class="ml-25 mt-25 x-float-right">
+        <p-megaMenu [model]="rightMegaMenuItems" styleClass="flex" ></p-megaMenu>
+    </div>
+
+    <div class="mr-25 mt-18 x-float-right">
+        <h3>{{this.userName}}</h3>
+    </div>
+
+    <div class="mr-25 mt-18 x-float-right br-35">
+        <p-avatar icon="pi pi-user" styleClass="mr-2" size="xlarge"></p-avatar>
+    </div>
+
+    <div class="mt-30 mr-25 justify-content-center x-float-right">
+        <p-selectButton [options]="expModeOptions" ngModel="defaultExpMode" optionLabel="label" optionValue="value" ></p-selectButton>
+    </div>
+</div>
+
+<div id="x-shell-body" class="dock-window">
+    <p-sidebar [visible]="true" [modal]="false">
+        <p-panelMenu [transitionOptions]="'500ms'" [model]="leftSideBarItems" [style]="{'width':'300px'}"></p-panelMenu>
+    </p-sidebar>
+    <p-sidebar [visible]="true" [modal]="false" position="right">
+        <p-tabView>
+            <p-tabPanel header="Steps">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+            </p-tabPanel>
+            <p-tabPanel header="Labware Info">
+                <p>
+                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim
+                    ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
+                </p>
+            </p-tabPanel>
+        </p-tabView>
+    </p-sidebar>
+</div>
+
+<div id="x-shell-footer">
+
+</div>  

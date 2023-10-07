@@ -1,0 +1,174 @@
+@import "primeicons/primeicons.css";
+@import "node_modules/primeng/resources/primeng.min.css";
+@import "node_modules/primeng/resources/themes/saga-green/theme.css";
+
+body {
+    font-family: var(--font-family);
+    font-weight: normal;
+    background: var(--surface-ground);
+    color: white;
+    padding: 1rem;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    padding: 0;
+}
+
+.p-megamenu {
+    background: #282B34 !important;
+    border: none;
+    padding: 0;
+    color: white;
+}
+
+.p-megamenu-horizontal {
+    display: inline-flex;
+}
+
+.p-menuitem-text {
+    // color: '#F9F4F4';
+    color: white;
+    font-size: 18px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: '300';
+    word-wrap: 'break-word';
+}
+
+.x-search-area {
+    border-radius: 0.3rem;
+    height: 40px;
+    width: 250px;
+    background: #979ba7;
+    margin-left: 550px;
+    font-size: medium;
+}
+
+.p-sidebar-active {
+    width: 20%;
+}
+
+.x-title {
+    margin-bottom: 7px;
+}
+
+.x-float-left {
+    float: left !important;
+}
+
+.x-float-right {
+    float: right !important;
+}
+
+.mt-8 {
+    margin-top: 8px;
+}
+
+.mt-18 {
+    margin-top: 18px;
+}
+
+.mt-30 {
+    margin-top: 30px;
+}
+
+.mt-28 {
+    margin-top: 28px;
+}
+
+.mt-25 {
+    margin-top: 25px;
+}
+
+.mt-3 {
+    margin-top: 3px;
+}
+
+.mr-25 {
+    margin-right: 25px;
+}
+
+.mr-15 {
+    margin-left: 15px;
+}
+
+#x-shell-header {
+    padding: 15px !important;
+    width: 80%;
+}
+
+.p-avatar-xl {
+    border-radius: 35px;
+}
+
+.p-megamenu-start {
+    display: flex;
+}
+
+.x-dflex {
+    display: flex;
+}
+
+.x-megamenu-icon {
+    font-size: x-large !important;
+}
+
+.ui-buttonset:not(.ui-splitbutton) .ui-button {
+    width: 100px;
+    height: 60px;
+}
+
+.p-sidebar-left {
+    top: 19.7% !important;
+    background: #282B34;
+    width: 20% !important;
+    height: 80%;
+    width: 5rem;
+}
+
+.p-sidebar-right {
+    background: #282B34;
+    width: 20% !important;
+}
+
+.p-sidebar-header {
+    display: none !important;
+}
+
+.p-panelmenu-header-content {
+    border: none !important;
+}
+
+.p-panelmenu-header-action {
+    background: #282B34 !important;
+}
+
+.p-panelmenu-content {
+    background: #282B34 !important;
+    border: none !important;
+}
+
+.p-icon {
+    color: #32cf81;
+}
+
+.p-icon-wrapper {
+    order: 1;
+    margin-right: 0px !important
+}
+
+.p-sidebar {
+    box-shadow: none;
+}
+
+.x-shell-body {
+    height: 100% !important;
+    width: 100% !important;
+}
+
+.p-sidebar-content {
+    padding: 0 !important;
+}
+
+.p-tabview-panels {
+    height: 100% !important;
+}
