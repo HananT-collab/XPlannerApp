@@ -16,6 +16,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { TabViewModule } from 'primeng/tabview';
+import { FormsModule } from '@angular/forms';
 
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -48,7 +49,8 @@ const appRoutes: Routes = [
     AvatarModule,
     AvatarGroupModule,
     PanelMenuModule,
-    TabViewModule
+    TabViewModule,
+    FormsModule
   ],
   exports: [],
   providers: [],

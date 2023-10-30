@@ -16,7 +16,8 @@ export class ShellComponent {
   expName: string = 'Cell Splitting';
   expType: string = 'Protocol';
   expModeOptions: any[] = [{ label: 'Edit', value: 'Edit' }, { label: 'View', value: 'View' }];
-  defaultExpMode: string = 'Edit';
+  expMode: string = 'Edit';
+  isViewMode: boolean = this.expMode != 'Edit';
   userName: string = 'Hanan Tokash';
   sidebarVisible: boolean = true;
 
@@ -41,6 +42,8 @@ export class ShellComponent {
 
   leftMegaMenuItems: MegaMenuItem[] | undefined;
   rightMegaMenuItems: MegaMenuItem[] | undefined;
+  editModeLeftSideBarItems: MenuItem[] | undefined;
+  viewModeLeftSideBarItems: MenuItem[] | undefined;
   leftSideBarItems: MenuItem[] | undefined;
 
   ngOnInit() {
@@ -51,7 +54,7 @@ export class ShellComponent {
       },
       {
         label: '<h3 class="x-title x-float-left" > ' + this.expType + ' ' + this.expId + '</h3>'
-          + '<h3>' + this.expName + '</h3>'
+          + '<h3 class="x-title">' + this.expName + '</h3>'
       }
     ];
     this.rightMegaMenuItems = [
@@ -69,7 +72,7 @@ export class ShellComponent {
       }
 
     ]
-    this.leftSideBarItems = [
+    this.editModeLeftSideBarItems = [
       {
         label: 'Tools',
         items: [{ label: 'Pipettes' }, { label: 'Stirrers' }, { label: 'Injectors' }, { label: 'Centrifuges' }]
@@ -87,6 +90,34 @@ export class ShellComponent {
         items: [{ label: 'Observation' }, { label: 'Analysis' }]
       }
     ];
+    this.viewModeLeftSideBarItems = [
+      {
+        icon: 'LeftSidebarToolsIcon.png',
+        items: [{ label: 'Pipettes' }, { label: 'Stirrers' }, { label: 'Injectors' }, { label: 'Centrifuges' }]
+      },
+      {
+        icon: 'LeftSidebarMaterialsIcon.png',
+        items: [{ label: 'Cells' }, { label: 'Buffers' }, { label: 'Enzymes' }]
+      },
+      {
+        icon: 'LeftSidebarVesselsIcon.png',
+        items: [{ label: 'Glassware' }, { label: 'Dishes' }]
+      },
+      {
+        icon: 'LeftSidebarDevicesIcon.png',
+        items: [{ label: 'Observation' }, { label: 'Analysis' }]
+      }
+    ];
+    this.leftSideBarItems = this.editModeLeftSideBarItems;
+  }
 
+  onToggleViewMode(event: Event, sender: any){
+    if (this.isViewMode) {
+      this.leftSideBarItems = this.viewModeLeftSideBarItems;      
+    }
+    else
+    {
+      this.leftSideBarItems = this.editModeLeftSideBarItems;
+    }
   }
 }

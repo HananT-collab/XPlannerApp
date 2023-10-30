@@ -19,15 +19,15 @@
     </div>
 
     <div class="mt-30 mr-25 justify-content-center x-float-right">
-        <p-selectButton [options]="expModeOptions" ngModel="defaultExpMode" optionLabel="label" optionValue="value" ></p-selectButton>
+        <p-selectButton [options]="expModeOptions" [(ngModel)]="expMode" optionLabel="label" optionValue="value" ></p-selectButton> 
     </div>
 </div>
 
 <div id="x-shell-body" class="dock-window">
-    <p-sidebar [visible]="true" [modal]="false">
-        <p-panelMenu [transitionOptions]="'500ms'" [model]="leftSideBarItems" [style]="{'width':'300px'}"></p-panelMenu>
+    <p-sidebar #leftSideBar [visible]="!isViewMode" [modal]="false">    
+        <p-panelMenu [transitionOptions]="'500ms'" [model]="leftSideBarItems" ></p-panelMenu>
     </p-sidebar>
-    <p-sidebar [visible]="true" [modal]="false" position="right">
+    <p-sidebar #rightSideBar [visible]="true" [modal]="false" position="right">
         <p-tabView>
             <p-tabPanel header="Steps">
                 <p>
