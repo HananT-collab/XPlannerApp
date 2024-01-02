@@ -1,7 +1,7 @@
 <div id="x-shell-header" class="card">
     <p-megaMenu [model]="leftMegaMenuItems" styleClass="flex">
         <ng-template pTemplate="start" class="x-float-left x-dflex">
-            <img src="../../../assets/XPlannerLogoNegative.svg" style="height: 60px; width: 158px;"  class="mr-2" />
+            <img src="../../../assets/XPlannerLogoNegative.svg"  class="main-logo mr-2" />
             <p-divider layout="vertical" ></p-divider>
         </ng-template>
     </p-megaMenu>
@@ -19,13 +19,13 @@
     </div>
 
     <div class="mt-30 mr-25 justify-content-center x-float-right">
-        <p-selectButton [options]="expModeOptions" [(ngModel)]="expMode" optionLabel="label" optionValue="value" ></p-selectButton> 
+        <p-selectButton [options]="expModeOptions" [(ngModel)]="expMode" optionLabel="label" optionValue="value" (onChange)="onToggleViewMode(this)"></p-selectButton> 
     </div>
 </div>
 
 <div id="x-shell-body" class="dock-window">
-    <p-sidebar #leftSideBar [visible]="!isViewMode" [modal]="false">    
-        <p-panelMenu [transitionOptions]="'500ms'" [model]="leftSideBarItems" ></p-panelMenu>
+    <p-sidebar #editModeleftSideBar [visible]="!isViewMode" [modal]="false">
+        <p-panelMenu [transitionOptions]="'500ms'" [model]="editModeLeftSideBarItems" ></p-panelMenu>
     </p-sidebar>
     <p-sidebar #rightSideBar [visible]="true" [modal]="false" position="right">
         <p-tabView>

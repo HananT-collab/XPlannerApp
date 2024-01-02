@@ -92,26 +92,23 @@ export class ShellComponent {
     ];
     this.viewModeLeftSideBarItems = [
       {
-        icon: 'LeftSidebarToolsIcon.png',
-        items: [{ label: 'Pipettes' }, { label: 'Stirrers' }, { label: 'Injectors' }, { label: 'Centrifuges' }]
+        icon: 'LeftSidebarToolsIcon.png'
       },
       {
         icon: 'LeftSidebarMaterialsIcon.png',
-        items: [{ label: 'Cells' }, { label: 'Buffers' }, { label: 'Enzymes' }]
       },
       {
         icon: 'LeftSidebarVesselsIcon.png',
-        items: [{ label: 'Glassware' }, { label: 'Dishes' }]
       },
       {
         icon: 'LeftSidebarDevicesIcon.png',
-        items: [{ label: 'Observation' }, { label: 'Analysis' }]
       }
     ];
     this.leftSideBarItems = this.editModeLeftSideBarItems;
   }
 
-  onToggleViewMode(event: Event, sender: any){
+  onToggleViewMode(sender: any){
+    this.isViewMode = !this.isViewMode;
     if (this.isViewMode) {
       this.leftSideBarItems = this.viewModeLeftSideBarItems;      
     }
