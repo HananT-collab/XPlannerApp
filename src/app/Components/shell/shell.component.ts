@@ -17,7 +17,6 @@ export class ShellComponent {
   expType: string = 'Protocol';
   expModeOptions: any[] = [{ label: 'Edit', value: 'Edit' }, { label: 'View', value: 'View' }];
   expMode: string = 'Edit';
-  isViewMode: boolean = this.expMode != 'Edit';
   userName: string = 'Hanan Tokash';
   sidebarVisible: boolean = true;
 
@@ -43,6 +42,7 @@ export class ShellComponent {
   leftMegaMenuItems: MegaMenuItem[] | undefined;
   rightMegaMenuItems: MegaMenuItem[] | undefined;
   editModeLeftSideBarItems: MenuItem[] | undefined;
+  otherEditModeLeftSideBarItems: MenuItem[] | undefined;
   viewModeLeftSideBarItems: MenuItem[] | undefined;
   leftSideBarItems: MenuItem[] | undefined;
 
@@ -92,29 +92,23 @@ export class ShellComponent {
     ];
     this.viewModeLeftSideBarItems = [
       {
-        icon: 'LeftSidebarToolsIcon.png'
+        label: '',
+        icon: 'xp-i-tool'
       },
       {
-        icon: 'LeftSidebarMaterialsIcon.png',
+        icon: 'xp-i-material',
       },
       {
-        icon: 'LeftSidebarVesselsIcon.png',
+        icon: 'xp-i-vessel',
       },
       {
-        icon: 'LeftSidebarDevicesIcon.png',
+        icon: 'xp-i-device',
       }
     ];
     this.leftSideBarItems = this.editModeLeftSideBarItems;
   }
 
-  onToggleViewMode(sender: any){
-    this.isViewMode = !this.isViewMode;
-    if (this.isViewMode) {
-      this.leftSideBarItems = this.viewModeLeftSideBarItems;      
-    }
-    else
-    {
-      this.leftSideBarItems = this.editModeLeftSideBarItems;
-    }
+  getLeftSideBarItems(){
+    return this.expMode != 'Edit' ? this.viewModeLeftSideBarItems : this.editModeLeftSideBarItems;
   }
 }

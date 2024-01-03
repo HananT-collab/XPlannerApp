@@ -19,13 +19,13 @@
     </div>
 
     <div class="mt-30 mr-25 justify-content-center x-float-right">
-        <p-selectButton [options]="expModeOptions" [(ngModel)]="expMode" optionLabel="label" optionValue="value" (onChange)="onToggleViewMode(this)"></p-selectButton> 
+        <p-selectButton [options]="expModeOptions" [(ngModel)]="expMode" optionLabel="label" optionValue="value" ></p-selectButton> 
     </div>
 </div>
 
 <div id="x-shell-body" class="dock-window">
-    <p-sidebar #editModeleftSideBar [visible]="!isViewMode" [modal]="false">
-        <p-panelMenu [transitionOptions]="'500ms'" [model]="editModeLeftSideBarItems" ></p-panelMenu>
+    <p-sidebar #leftSideBar [visible]="true" [modal]="false">
+        <p-panelMenu [transitionOptions]="'500ms'" [model]="getLeftSideBarItems()" ></p-panelMenu>
     </p-sidebar>
     <p-sidebar #rightSideBar [visible]="true" [modal]="false" position="right">
         <p-tabView>

@@ -173,3 +173,32 @@ body {
 .p-tabview-panels {
     height: 100% !important;
 }
+
+.xp-i-device {
+    width: 30px;
+    height: 35px;
+    background-repeat: no-repeat;
+    background-image: url("assets/LeftSidebarDevicesIcon.png");
+}
+
+.xp-i-tool {
+    width: 30px;
+    height: 35px;
+    background-repeat: no-repeat;
+    background-image: url("assets/LeftSidebarToolsIcon.png");
+}
+
+.xp-i-vessel {
+    width: 30px;
+    height: 35px;    
+    background-repeat: no-repeat;
+    background-image: url("assets/LeftSidebarVesselsIcon.png");
+}
+
+.xp-i-material {
+    width: 30px;
+    height: 35px;
+    background-repeat: no-repeat;
+    background-image: url("assets/LeftSidebarMaterialsIcon.png");
+}
+
