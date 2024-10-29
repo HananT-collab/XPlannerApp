@@ -1,0 +1,66 @@
+<p-dialog class="x-product-catalog"
+    header="Labware Catalog" 
+    [modal]="true"
+    [(visible)]="productCatalogVisible" 
+    [style]="{ width: '60rem', height: '50rem' }" 
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" 
+    [maximizable]="true"
+    (onHide)="onDialogClose($event)">
+    
+    <div class="card">
+        <p-table 
+                 #productDt 
+                 [value]="products"
+                 dataKey="name"
+                 [tableStyle]="{'min-width': '60rem'}"
+                 [paginator]="true"
+                 [rows]="10"
+                 [rowsPerPageOptions]="[5, 10, 20]"
+                 [globalFilterFields]="['name', 'category']">
+                 <ng-template pTemplate="caption">
+                    <div class="flex">
+                        <p-button label="Clear" icon="pi pi-filter-slash" (onClick)="clear(productDt)" />
+                        <span class="p-input-icon-left ml-auto">
+                            <i class="pi pi-search"></i>
+                            <input pInputText #pInputText type="text" [(ngModel)]="searchValue" (input)="productDt.filterGlobal(pInputText.value, 'contains')" placeholder="Search keyword" />
+                        </span>
+                    </div>
+                </ng-template>  
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>
+                        <div class="flex align-items-center">
+                            Name
+                            <p-columnFilter type="text" field="name" display="menu" />
+                        </div>
+                    </th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th>
+                        <div class="flex align-items-center">
+                            Category
+                            <p-columnFilter type="text" field="category" display="menu" />
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td>{{product.name}}</td>
+                    <td>{{product.quantity}}</td>
+                    <td>{{product.price}}</td>
+                    <td>{{product.shortDescription}}</td>
+                    <td><img [src]="product.image" [alt]="product.name" width="50" class="shadow-4" /></td>
+                    <td>{{product.category}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                <div class="flex align-items-center justify-content-between">
+                    In total there are {{products ? products.length : 0 }} products.
+                </div>
+            </ng-template>
+        </p-table>
+    </div>
+</p-dialog>

@@ -1,8 +1,5 @@
 import { AfterViewInit, Component, ElementRef } from '@angular/core';
-import { ContentService } from './content.service';
-import { HttpClient } from '@angular/common/http';
-import { ShellComponent } from './Components/shell/shell.component';
-
+import { ContentService } from './Services/ContentService/content.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +11,7 @@ export class AppComponent implements AfterViewInit {
   _rawEntityList: any;
   
   constructor(private elementRef: ElementRef, private contentService: ContentService){
-    this.getRawEntityList();
+    // this.getRawEntityList();
   }
 
   ngAfterViewInit() {

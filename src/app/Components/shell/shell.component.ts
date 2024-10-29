@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { MegaMenuItem, MenuItem } from 'primeng/api';
+import { ProductCatalogComponent } from '../product-catalog/product-catalog.component';
 
 
 @Component({
-  selector: 'app-shell',
+  selector: 'x-shell',
   templateUrl: './shell.component.html',
   styleUrls: ['./shell.component.scss']
 })
@@ -19,6 +20,9 @@ export class ShellComponent {
   expMode: string = 'Edit';
   userName: string = 'Hanan Tokash';
   sidebarVisible: boolean = true;
+  smartCanvasVisible: boolean = true;
+  productCatalogVisible: boolean = false;
+  @ViewChild(ProductCatalogComponent) productCatalog!: ProductCatalogComponent;
 
   positionOptions = [
     {
@@ -75,19 +79,45 @@ export class ShellComponent {
     this.editModeLeftSideBarItems = [
       {
         label: 'Tools',
-        items: [{ label: 'Pipettes' }, { label: 'Stirrers' }, { label: 'Injectors' }, { label: 'Centrifuges' }]
+        items: [
+          { label: 'Pipettes',
+          command: () => this.onMenuItemClick('openProductCatalog') }, 
+          { label: 'Stirrers',
+          command: () => this.onMenuItemClick('openProductCatalog') }, 
+          { label: 'Injectors',
+          command: () => this.onMenuItemClick('openProductCatalog') }, 
+          { label: 'Centrifuges',
+          command: () => this.onMenuItemClick('openProductCatalog') }
+        ]
       },
       {
         label: 'Materials',
-        items: [{ label: 'Cells' }, { label: 'Buffers' }, { label: 'Enzymes' }]
+        items: [
+          { label: 'Cells',
+          command: () => this.onMenuItemClick('openProductCatalog') }, 
+          { label: 'Buffers',
+          command: () => this.onMenuItemClick('openProductCatalog') }, 
+          { label: 'Enzymes',
+          command: () => this.onMenuItemClick('openProductCatalog') }
+        ]
       },
       {
         label: 'Vessels',
-        items: [{ label: 'Glassware' }, { label: 'Dishes' }]
+        items: [
+          { label: 'Glassware',
+          command: () => this.onMenuItemClick('openProductCatalog') }, 
+          { label: 'Dishes',
+          command: () => this.onMenuItemClick('openProductCatalog') }
+        ]
       },
       {
         label: 'Devices',
-        items: [{ label: 'Observation' }, { label: 'Analysis' }]
+        items: [
+          { label: 'Observation',
+          command: () => this.onMenuItemClick('openProductCatalog') }, 
+          { label: 'Analysis',
+          command: () => this.onMenuItemClick('openProductCatalog') }
+        ]
       }
     ];
     this.viewModeLeftSideBarItems = [
@@ -106,9 +136,29 @@ export class ShellComponent {
       }
     ];
     this.leftSideBarItems = this.editModeLeftSideBarItems;
+    
   }
 
   getLeftSideBarItems(){
     return this.expMode != 'Edit' ? this.viewModeLeftSideBarItems : this.editModeLeftSideBarItems;
+  }
+
+  openProductCatalog(e?: Event){
+    this.productCatalog.productCatalogVisible = true;
+  }
+
+  onMenuItemClick(command: string) {
+    switch (command) {
+      case 'openProductCatalog':
+        this.openProductCatalog();    
+        break;
+    
+      default:
+        break;
+    }
+  }
+
+  onProductCatalogClosed(){
+    this.productCatalog.productCatalogVisible = false;
   }
 }
