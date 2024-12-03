@@ -4,6 +4,11 @@
     height: 627px;
 }
 
+:host ::ng-deep .x-product-catalog th{
+    font-size: 15px;
+    padding: 10px !important;
+}
+
 .p-input-icon-left {
     float: right;
 }
@@ -11,3 +16,14 @@
 #pinputtext {
     width: 300px;
 }
+
+:host ::ng-deep .p-datatable tr td {
+    font-size: 12px;
+    padding: 10px;
+}
+
+:host ::ng-deep .p-datatable-wrapper th{
+    font-size: 15px;
+    padding: 10px !important;
+}
+

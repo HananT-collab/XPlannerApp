@@ -7,6 +7,7 @@ export interface Product {
     image?: string;
     price?: string;
     quantity?: string;
+    intQty?: number;
     category?: string;
     model?: string;
     electricalRequirements?: string;
@@ -14,6 +15,17 @@ export interface Product {
     isTool?: boolean;
     isMaterial?: boolean;
     isVessel?: boolean;
+    isIntroduced?: boolean;
+    stateOfMatter?: stateOfMatter
+}
+
+
+export enum stateOfMatter {
+  Liquid,
+  Solid,
+  Gas,
+  Plasma,
+  Powder
 }
 
 

@@ -1,7 +1,28 @@
+:host ::ng-deep .p-tabview .p-tabview-panels {
+    background: #282b34 !important;
+    background-color: #282b34 !important;
+}
+
+:host ::ng-deep .p-tabview-nav{
+    background: #282b34 !important;
+    background-color: #282b34 !important;
+}
+
+:host ::ng-deep .p-tabview-nav-link{
+    background: #282b34 !important;
+    background-color: #282b34 !important;
+    height: 70px;
+}
+
+:host ::ng-deep .p-accordion-header .p-accordion-header-link{
+    background: #282b34 !important;
+    background-color: #282b34 !important;
+    border: none;
+}
 
 .main-logo {
-    height: 60px; 
-    width: 158px;
+    height: 45px; 
+    width: 120px;
 }
 
 .x-dark-gray {
@@ -15,6 +36,61 @@
     // margin-bottom: 1rem;
 }
 
-.p-component {
-    background: #282B34 !important;
+:host ::ng-deep .p-accordion-toggle-icon {
+    margin-left: auto !important;
 }
+
+:host ::ng-deep .p-accordion p-accordiontab:first-child .p-accordion-header .p-accordion-header-link {
+    border-radius: 0 !important;
+}
+
+:host ::ng-deep p-tabView .p-button {
+    border-radius: 0 !important;
+    width: 100% !important;
+    text-align: left !important;
+}
+
+:host ::ng-deep .p-listbox {
+    width: unset !important;
+    border-radius: 0;
+}
+
+:host ::ng-deep p-listbox-item {
+    font: white !important;
+}
+
+:host ::ng-deep .p-listbox-header {
+    display: none;
+}
+
+:host ::ng-deep .p-checkbox-icon {
+    color: white;
+}
+
+:host ::ng-deep .p-listbox-item {
+    display: list-item;
+}
+
+:host ::ng-deep .p-menuitem-text {
+    background: #495057 !important;
+    color: black !important;
+}
+
+:host ::ng-deep .x-labware-menu-button button {
+    height: 25px;
+    background: none;
+    border: none;
+    color: #4CAF50;
+    border-radius: 3px;
+}
+
+:host ::ng-deep .x-labware-menu-button button :hover {
+    height: 25px;
+    background: #4CAF50;
+    border: none;
+    color: white;
+}
+
+
+
+

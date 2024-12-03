@@ -1,7 +1,8 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { MegaMenuItem, MenuItem } from 'primeng/api';
 import { ProductCatalogComponent } from '../product-catalog/product-catalog.component';
-
+import { Product } from 'src/app/Model/product';
+import { LabwareActionsService } from 'src/app/Services/LabwareActionsService/labware-actions.service';
 
 @Component({
   selector: 'x-shell',
@@ -10,19 +11,31 @@ import { ProductCatalogComponent } from '../product-catalog/product-catalog.comp
 })
 export class ShellComponent {
 
-  @Input() data = 'No Results Found'
-  display: boolean = false;
-  labwareDockPosition = 'left';
   expId: number = 123456;
   expName: string = 'Cell Splitting';
   expType: string = 'Protocol';
-  expModeOptions: any[] = [{ label: 'Edit', value: 'Edit' }, { label: 'View', value: 'View' }];
-  expMode: string = 'Edit';
   userName: string = 'Hanan Tokash';
+
+  @Input() data = 'No Results Found'
+  display: boolean = false;
+  labwareDockPosition = 'left';
+  
+  expModeOptions: any[] = [{ label: 'Edit', value: 'Edit' }, { label: 'View', value: 'View' }];
+  actions: MenuItem[] = [];
+  expMode: string = 'Edit';
+  
   sidebarVisible: boolean = true;
   smartCanvasVisible: boolean = true;
   productCatalogVisible: boolean = false;
+
+  activeStep: number = 0;
+
+  products: Product[] = [];
+  selectedProducts: Product | undefined;
+  isProductFilter: boolean = false;
+  isLabware: boolean = false;
   @ViewChild(ProductCatalogComponent) productCatalog!: ProductCatalogComponent;
+  labwareActionsService: LabwareActionsService = new LabwareActionsService();
 
   positionOptions = [
     {
@@ -45,22 +58,15 @@ export class ShellComponent {
 
   leftMegaMenuItems: MegaMenuItem[] | undefined;
   rightMegaMenuItems: MegaMenuItem[] | undefined;
+
   editModeLeftSideBarItems: MenuItem[] | undefined;
-  otherEditModeLeftSideBarItems: MenuItem[] | undefined;
   viewModeLeftSideBarItems: MenuItem[] | undefined;
+
   leftSideBarItems: MenuItem[] | undefined;
 
-  ngOnInit() {
+  stepsItems: MenuItem[] = [];
 
-    this.leftMegaMenuItems = [
-      {
-        label: ''
-      },
-      {
-        label: '<h3 class="x-title x-float-left" > ' + this.expType + ' ' + this.expId + '</h3>'
-          + '<h3 class="x-title">' + this.expName + '</h3>'
-      }
-    ];
+  ngOnInit() {  
     this.rightMegaMenuItems = [
       {
         icon: 'pi pi-home x-megamenu-icon'
@@ -76,65 +82,8 @@ export class ShellComponent {
       }
 
     ]
-    this.editModeLeftSideBarItems = [
-      {
-        label: 'Tools',
-        items: [
-          { label: 'Pipettes',
-          command: () => this.onMenuItemClick('openProductCatalog') }, 
-          { label: 'Stirrers',
-          command: () => this.onMenuItemClick('openProductCatalog') }, 
-          { label: 'Injectors',
-          command: () => this.onMenuItemClick('openProductCatalog') }, 
-          { label: 'Centrifuges',
-          command: () => this.onMenuItemClick('openProductCatalog') }
-        ]
-      },
-      {
-        label: 'Materials',
-        items: [
-          { label: 'Cells',
-          command: () => this.onMenuItemClick('openProductCatalog') }, 
-          { label: 'Buffers',
-          command: () => this.onMenuItemClick('openProductCatalog') }, 
-          { label: 'Enzymes',
-          command: () => this.onMenuItemClick('openProductCatalog') }
-        ]
-      },
-      {
-        label: 'Vessels',
-        items: [
-          { label: 'Glassware',
-          command: () => this.onMenuItemClick('openProductCatalog') }, 
-          { label: 'Dishes',
-          command: () => this.onMenuItemClick('openProductCatalog') }
-        ]
-      },
-      {
-        label: 'Devices',
-        items: [
-          { label: 'Observation',
-          command: () => this.onMenuItemClick('openProductCatalog') }, 
-          { label: 'Analysis',
-          command: () => this.onMenuItemClick('openProductCatalog') }
-        ]
-      }
-    ];
-    this.viewModeLeftSideBarItems = [
-      {
-        label: '',
-        icon: 'xp-i-tool'
-      },
-      {
-        icon: 'xp-i-material',
-      },
-      {
-        icon: 'xp-i-vessel',
-      },
-      {
-        icon: 'xp-i-device',
-      }
-    ];
+    
+    this.stepsItems = this.stepsItems = [...this.stepsItems, { title: 'Step 1' }]; 
     this.leftSideBarItems = this.editModeLeftSideBarItems;
     
   }
@@ -160,5 +109,79 @@ export class ShellComponent {
 
   onProductCatalogClosed(){
     this.productCatalog.productCatalogVisible = false;
+  }
+
+  onProductIntroduced(introducedProduct: Product) {
+    let productFound = this.products.find(x => x.code == introducedProduct.code)
+    if (productFound) {
+      if (!productFound.intQty) {
+        productFound.intQty = 0;
+      }
+      productFound.intQty = productFound.intQty + 1;
+    }
+    else {
+      this.products = [...this.products, introducedProduct];
+    }
+
+    if (this.products.length > 0) {
+      this.isLabware = true;
+    }
+    else{
+      this.isLabware = false;
+    }
+
+    if (this.products.length > 5) {
+      this.isProductFilter = true;
+    }
+    else{
+      this.isProductFilter = false;
+    }
+  }
+
+  onProductUnintroduced(unintroducedProduct: Product) {
+    unintroducedProduct.intQty = 0;
+    let prodIdx = this.products.findIndex(x => x.code = unintroducedProduct.code) 
+    this.products.splice(prodIdx, 1);
+    this.products = [...this.products];
+
+    if (this.products.length > 0) {
+      this.isLabware = true;
+    }
+    else{
+      this.isLabware = false;
+    }
+
+    if (this.products.length > 5) {
+      this.isProductFilter = true;
+    }
+    else{
+      this.isProductFilter = false;
+    }
+  }
+
+  onNextStep() {
+    const currStep = this.stepsItems.length + 1;
+    const newItem: MenuItem = { label: `Step ${currStep}`, title: `Step ${currStep}` }
+    this.stepsItems = [...this.stepsItems, newItem];
+  } 
+
+  onRightClick(event: any, menu: any) {
+    event.preventDefault(); // Prevent the default browser context menu
+    event.stopPropagation(); // Prevent the event from propagating further
+
+    // Get the clicked item by calculating its index
+    const listboxElement = event.target as HTMLElement;
+    const parentList = listboxElement.closest('.p-listbox-list');
+    const childElements = Array.from(parentList?.children || []);
+    const index = childElements.indexOf(listboxElement.closest('.p-listbox-item')!);
+    let selectedProduct = this.products[index];
+      
+    this.getActions(selectedProduct);
+    
+    menu.toggle(event); // Display menu at the cursor
+  }
+
+  getActions(selectedProduct: Product): void {
+    this.actions = this.labwareActionsService.getActions(selectedProduct, this.products);
   }
 }

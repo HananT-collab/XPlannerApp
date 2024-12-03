@@ -64,6 +64,14 @@ body {
     margin-top: 8px;
 }
 
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mt-15 {
+    margin-top: 15px;
+}
+
 .mt-18 {
     margin-top: 18px;
 }
@@ -84,21 +92,35 @@ body {
     margin-top: 3px;
 }
 
-.mr-25 {
-    margin-right: 25px;
+.mb-10 {
+    margin-bottom: 10px;
 }
 
 .mr-15 {
     margin-left: 15px;
 }
 
+.mr-25 {
+    margin-right: 25px;
+}
+
+.mr-50 {
+    margin-right: 50px;
+}
+
+.ml-50 {
+    margin-left: 50px;
+}
+
 #x-shell-header {
     padding: 0px !important;
     width: 80%;
+    height: 70px;
+    display: flex;
 }
 
-.p-avatar-xl {
-    border-radius: 35px;
+.p-avatar {
+    border-radius: 35px !important;
 }
 
 .p-megamenu-start {
@@ -161,11 +183,6 @@ body {
     box-shadow: none;
 }
 
-.x-shell-body {
-    height: 100% !important;
-    width: 100% !important;
-}
-
 .p-sidebar-content {
     padding: 0 !important;
 }
@@ -202,3 +219,31 @@ body {
     background-image: url("assets/LeftSidebarMaterialsIcon.png");
 }
 
+.xp-fs-med {
+    font-size: medium;
+}
+
+.xp-w-100pct {
+    width: 100%;
+}
+
+.p-tabview-panels .p-tabview-nav-container .p-tabview .p-tabview-nav-link .p-highlight .p-element .p-ripple {
+    background: #282b34 !important;
+    background-color: #282b34 !important;
+}
+
+.fs-10 {
+    font-size: 10px;
+}
+
+.fs-12 {
+    font-size: 12px;
+}
+
+.fs-15 {
+    font-size: 15px;
+}
+
+.p-tabview-panels {
+    padding: unset;
+}

@@ -6,13 +6,11 @@
     [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" 
     [maximizable]="true"
     (onHide)="onDialogClose($event)">
-    
     <div class="card">
         <p-table 
                  #productDt 
                  [value]="products"
                  dataKey="name"
-                 [tableStyle]="{'min-width': '60rem'}"
                  [paginator]="true"
                  [rows]="10"
                  [rowsPerPageOptions]="[5, 10, 20]"
@@ -28,6 +26,8 @@
                 </ng-template>  
             <ng-template pTemplate="header">
                 <tr>
+                    <th></th>
+                    <th></th>
                     <th>
                         <div class="flex align-items-center">
                             Name
@@ -36,24 +36,26 @@
                     </th>
                     <th>Qty</th>
                     <th>Price</th>
-                    <th>Description</th>
+                    <!-- <th>Description</th> -->
                     <th>Image</th>
-                    <th>
+                    <!-- <th>
                         <div class="flex align-items-center">
                             Category
                             <p-columnFilter type="text" field="category" display="menu" />
                         </div>
-                    </th>
+                    </th> -->
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-product>
                 <tr>
+                    <td><p-button icon="pi pi-plus" (onClick)="introduceItem(product)" /></td>
+                    <td><p-button icon="pi pi-minus" *ngIf="product.isIntroduced" (onClick)="unintroduceItem(product)" /></td>
                     <td>{{product.name}}</td>
                     <td>{{product.quantity}}</td>
                     <td>{{product.price}}</td>
-                    <td>{{product.shortDescription}}</td>
-                    <td><img [src]="product.image" [alt]="product.name" width="50" class="shadow-4" /></td>
-                    <td>{{product.category}}</td>
+                    <!-- <td>{{product.shortDescription}}</td> -->
+                    <td><img [src]="product.image" [alt]="product.name" width="25" class="shadow-4" /></td>
+                    <!-- <td>{{product.category}}</td> -->
                 </tr>
             </ng-template>
             <ng-template pTemplate="summary">

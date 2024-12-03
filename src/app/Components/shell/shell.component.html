@@ -1,34 +1,23 @@
-<div id="x-shell-header" class="card">
-    <p-megaMenu [model]="leftMegaMenuItems" styleClass="flex">
+<div id="x-shell-header" class="card"> 
+    <!-- <p-megaMenu [model]="leftMegaMenuItems" styleClass="flex">
         <ng-template pTemplate="start" class="x-float-left x-dflex">
-            <img src="../../../assets/XPlannerLogoNegative.svg"  class="main-logo mr-2" />
-            <p-divider layout="vertical" ></p-divider>
+            
         </ng-template>
-    </p-megaMenu>
+    </p-megaMenu> -->
 
-    <div class="ml-25 mt-25 x-float-right">
+    <img src="../../../assets/XPlannerLogoNegative.svg"  class="main-logo mr-2 mt-15" />  
+
+    <!-- <div class="ml-25 mt-25 x-float-right">
         <p-megaMenu [model]="rightMegaMenuItems" styleClass="flex" ></p-megaMenu>
-    </div>
+    </div> -->
 
-    <div class="mr-25 mt-18 x-float-right">
-        <h3>{{this.userName}}</h3>
-    </div>
-
-    <div class="mr-25 mt-18 x-float-right br-35">
-        <p-avatar icon="pi pi-user" styleClass="mr-2" size="xlarge"></p-avatar>
-    </div>
-
-    <div class="mt-30 mr-25 justify-content-center x-float-right">
-        <p-selectButton [options]="expModeOptions" [(ngModel)]="expMode" optionLabel="label" optionValue="value" ></p-selectButton> 
-    </div>
+    <!-- <div class="ml-50 mt-18 x-float-right">
+        <p-avatar icon="pi pi-user" styleClass="mr-2" size="normal" title="{{this.userName}}"></p-avatar>
+    </div> -->
 </div>
 
-<div id="x-shell-body" class="dock-window">
-    <!-- to do: hide sidebar -->
-    <p-sidebar #leftSideBar [visible]="true" [modal]="false">
-        <p-panelMenu [transitionOptions]="'500ms'" [model]="getLeftSideBarItems()" ></p-panelMenu>
-    </p-sidebar>
-    
+<div id="x-shell-body" class="x-dock-window">
+   
     <!-- smart canvas is show by default -->
     <x-smart-canvas *ngIf="smartCanvasVisible"></x-smart-canvas>
     
@@ -36,22 +25,46 @@
     <p-sidebar #rightSideBar [visible]="true" [modal]="false" position="right">
         <p-tabView>
             <p-tabPanel header="Steps">
-                <p>
-                    Accordion view here
-                </p>
+                <div>
+                    <p-button icon="pi pi-plus" class="br-none full-width-button" label="Next step" (onClick)="this.onNextStep()"></p-button>
+                </div>
+                <!-- <x-step-accordion></x-step-accordion> -->
+                <p-accordion>
+                    <p-accordionTab [header]="step.title" *ngFor="let step of this.stepsItems"></p-accordionTab>
+                </p-accordion>
             </p-tabPanel>
-            <p-tabPanel header="Labware Info">
-                <p>
-                    Seleced labware details here
-                </p>
+            <p-tabPanel header="Labware">
+                <div class="br-none">
+                    <p-button icon="pi pi-plus" class="br-none full-width-button" label="Introduce Labware" (onClick)="this.onMenuItemClick('openProductCatalog')"></p-button>
+                </div>
+                
+                <p-listbox
+                    #labwareContextMenu
+                    *ngIf="isLabware"
+                    [options]="products"
+                    [(ngModel)]="selectedProducts"
+                    [metaKeySelection]="false" 
+                    [checkbox]="false"
+                    [filter]="isProductFilter" 
+                    [multiple]="true" optionLabel="name">
+                    <ng-template let-product pTemplate="item">
+                        <span class="fs-12">{{product.name}}</span>
+                    </ng-template>
+                </p-listbox>
+                <p-contextMenu [target]="labwareContextMenu" [model]="actions" [global]="true"/>
             </p-tabPanel>
         </p-tabView>
     </p-sidebar>
 </div>
 
 <div id="x-shell-footer">
-
-</div>  
+    <!-- <p-selectButton [options]="expModeOptions" [(ngModel)]="expMode" optionLabel="label" optionValue="value" ></p-selectButton>  -->
+    
+</div>
 
 <!-- catalog is shown on labware import event -->
-<x-product-catalog [productCatalogVisible]="productCatalogVisible" (productCatalogClosed)="onProductCatalogClosed()" ></x-product-catalog>
+<x-product-catalog [productCatalogVisible]="productCatalogVisible" 
+    (productCatalogClosed)="onProductCatalogClosed()" 
+    (productIntroduced)="onProductIntroduced($event)"
+    (productUnintroduced)="onProductUnintroduced($event)">
+</x-product-catalog>
