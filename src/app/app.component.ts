@@ -4,6 +4,7 @@ import { ContentService } from './Services/ContentService/content.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
+  standalone: false,
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements AfterViewInit {
@@ -15,19 +16,21 @@ export class AppComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.elementRef.nativeElement.ownerDocument
-        .body.style.backgroundColor = 'black';
+    this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = 'black';
+    // this.contentService.testApi().subscribe((response: any) => {
+    //   alert(response.message);
+    // });
   }
 
   getRawEntityList(){
-    return this.contentService.getRawEntityList().subscribe((response) => {
-      if (response) {
-        this._rawEntityList = JSON.stringify(response);  
-      }
-      else{
-        console.log("getRawEntityList(): An error has occured");
-      }
-    });
+    // return this.contentService.getRawEntityList().subscribe((response) => {
+    //   if (response) {
+    //     this._rawEntityList = JSON.stringify(response);  
+    //   }
+    //   else{
+    //     console.log("getRawEntityList(): An error has occured");
+    //   }
+    // });
   }
 
   title = 'XPlanner.WebSite';

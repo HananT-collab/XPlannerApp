@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Table } from 'primeng/table';
 import { Product } from 'src/app/Model/product';
 import { ProductCatalogService } from 'src/app/Services/ProductCatalogService/product-catalog.service';
-import { ShellComponent } from '../Shell/shell.component';
 
 interface Column {
   field: string;
@@ -12,6 +11,7 @@ interface Column {
 @Component({
   selector: 'x-product-catalog',
   templateUrl: './product-catalog.component.html',
+  standalone: false,
   styleUrls: ['./product-catalog.component.scss']
 })
 

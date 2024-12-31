@@ -7,6 +7,7 @@ import { LabwareActionsService } from 'src/app/Services/LabwareActionsService/la
 @Component({
   selector: 'x-shell',
   templateUrl: './shell.component.html',
+  standalone: false,
   styleUrls: ['./shell.component.scss']
 })
 export class ShellComponent {
@@ -22,6 +23,7 @@ export class ShellComponent {
   
   expModeOptions: any[] = [{ label: 'Edit', value: 'Edit' }, { label: 'View', value: 'View' }];
   actions: MenuItem[] = [];
+  stepsAccordionItems: MenuItem[]= [];
   expMode: string = 'Edit';
   
   sidebarVisible: boolean = true;

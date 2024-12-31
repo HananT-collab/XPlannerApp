@@ -26,17 +26,17 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DropdownModule } from 'primeng/dropdown';
 import { PickListModule } from 'primeng/picklist';
 import { AccordionModule } from 'primeng/accordion';
 import { ListboxModule } from 'primeng/listbox';
 import { MenuModule } from 'primeng/menu';
-import { ShellComponent } from './Components/Shell/shell.component';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SmartCanvasComponent } from './Components/smart-canvas/smart-canvas.component';
 import { ProductCatalogComponent } from './Components/product-catalog/product-catalog.component';
+import { ShellComponent } from './Components/shell/shell.component';
+import { ContentService } from './Services/ContentService/content.service';
 
 
 const appRoutes: Routes = [
@@ -53,10 +53,9 @@ const appRoutes: Routes = [
     ProductCatalogComponent
   ],
   imports: [
-    // RouterModule.forRoot(appRoutes, { enableTracing: true }),
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
     SidebarModule,
     ButtonModule,
     MenubarModule,
@@ -88,7 +87,7 @@ const appRoutes: Routes = [
     ContextMenuModule
   ],
   exports: [],
-  providers: [],
+  providers: [ContentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -30,7 +30,8 @@
                 </div>
                 <!-- <x-step-accordion></x-step-accordion> -->
                 <p-accordion>
-                    <p-accordionTab [header]="step.title" *ngFor="let step of this.stepsItems"></p-accordionTab>
+                    <p-accordionTab #stepsAccordion [header]="step.title" *ngFor="let step of this.stepsItems"></p-accordionTab>
+                    <!-- <p-contextmenu [target]="stepsAccordion" [model]="stepsAccordionItems" /> -->
                 </p-accordion>
             </p-tabPanel>
             <p-tabPanel header="Labware">
@@ -51,7 +52,7 @@
                         <span class="fs-12">{{product.name}}</span>
                     </ng-template>
                 </p-listbox>
-                <p-contextMenu [target]="labwareContextMenu" [model]="actions" [global]="true"/>
+                <!-- <p-contextMenu [target]="labwareContextMenu" [model]="actions" [global]="true"/> -->
             </p-tabPanel>
         </p-tabView>
     </p-sidebar>
