@@ -40,11 +40,11 @@
     margin-left: auto !important;
 }
 
-:host ::ng-deep .p-accordion p-accordiontab:first-child .p-accordion-header .p-accordion-header-link {
+:host ::ng-deep .p-accordion .p-accordiontab:first-child .p-accordion-header .p-accordion-header-link {
     border-radius: 0 !important;
 }
 
-:host ::ng-deep p-tabView .p-button {
+:host ::ng-deep .p-tabView .p-button {
     border-radius: 0 !important;
     width: 100% !important;
     text-align: left !important;
@@ -55,8 +55,11 @@
     border-radius: 0;
 }
 
-:host ::ng-deep p-listbox-item {
-    font: white !important;
+:host ::ng-deep .p-listbox-item {
+    background: #282b34 !important;
+    background-color: #282b34 !important;
+    color: white !important;
+    display: list-item;
 }
 
 :host ::ng-deep .p-listbox-header {
@@ -67,13 +70,8 @@
     color: white;
 }
 
-:host ::ng-deep .p-listbox-item {
-    display: list-item;
-}
-
 :host ::ng-deep .p-menuitem-text {
-    background: #495057 !important;
-    color: black !important;
+    color: white !important;
 }
 
 :host ::ng-deep .x-labware-menu-button button {
@@ -91,9 +89,24 @@
     color: white;
 }
 
-::ng-deep .p-contextmenu {
+:host ::ng-deep .p-contextmenu {
     position: absolute;
+    background: #282b34 !important;
+    background-color: #282b34 !important;
+    color: white !important;
+    padding: 0;
 }
 
+:host ::ng-deep .p-listbox-list-wrapper, .p-listbox-list {
+    background: #282b34 !important;
+    background-color: #282b34 !important;
+    color: white !important;
+}
 
+:host ::ng-deep .p-listbox {
+    border: none;
+}
 
+.d-grid {
+    display: grid;
+}

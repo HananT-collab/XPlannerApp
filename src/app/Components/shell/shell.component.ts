@@ -38,7 +38,8 @@ export class ShellComponent {
   isProductFilter: boolean = false;
   isLabware: boolean = false;
   @ViewChild(ProductCatalogComponent) productCatalog!: ProductCatalogComponent;
-  @ViewChild('contextMenu') contextMenu!: ContextMenu;
+  @ViewChild('stepContextMenu') stepContextMenu!: ContextMenu;
+  @ViewChild('labwareContextMenu') labwareContextMenu!: ContextMenu;
   labwareActionsService: LabwareActionsService = new LabwareActionsService();
 
   positionOptions = [
@@ -69,14 +70,23 @@ export class ShellComponent {
   leftSideBarItems: MenuItem[] | undefined;
 
   targetStep!: HTMLElement | undefined;
+  targetLabware!: HTMLElement | undefined;
   stepsItems: MenuItem[] = [];
-  contextMenuItems = [
+  
+  stepContextMenuItems = [
       {
           label: 'Delete',
           icon: 'pi pi-times',
           command: () => this.deleteItem(this.selectedItemIndex)
       }
   ];
+  labwareContextMenuItems = [
+    {
+        label: 'Delete',
+        icon: 'pi pi-times',
+        command: () => this.deleteItem(this.selectedItemIndex)
+    }
+];
 
   ngOnInit() {  
     this.rightMegaMenuItems = [
@@ -97,7 +107,6 @@ export class ShellComponent {
     
     this.stepsItems = this.stepsItems = [...this.stepsItems, { title: 'Step 1' }]; 
     this.leftSideBarItems = this.editModeLeftSideBarItems;
-    
   }
 
   getLeftSideBarItems(){
@@ -125,50 +134,17 @@ export class ShellComponent {
 
   onProductIntroduced(introducedProduct: Product) {
     let productFound = this.products.find(x => x.code == introducedProduct.code)
-    if (productFound) {
-      if (!productFound.intQty) {
-        productFound.intQty = 0;
-      }
-      productFound.intQty = productFound.intQty + 1;
-    }
-    else {
-      this.products = [...this.products, introducedProduct];
-    }
-
-    if (this.products.length > 0) {
-      this.isLabware = true;
-    }
-    else{
-      this.isLabware = false;
-    }
-
-    if (this.products.length > 5) {
-      this.isProductFilter = true;
-    }
-    else{
-      this.isProductFilter = false;
-    }
+    this.products = [...this.products, introducedProduct];
+    this.products.length > 0 ? this.isLabware = true : this.isLabware = false;
+    this.products.length > 5 ? this.isProductFilter = true : this.isProductFilter = false;
   }
 
   onProductUnintroduced(unintroducedProduct: Product) {
-    unintroducedProduct.intQty = 0;
-    let prodIdx = this.products.findIndex(x => x.code = unintroducedProduct.code) 
+    let prodIdx = this.products.findIndex(x => x.code == unintroducedProduct.code) 
     this.products.splice(prodIdx, 1);
     this.products = [...this.products];
-
-    if (this.products.length > 0) {
-      this.isLabware = true;
-    }
-    else{
-      this.isLabware = false;
-    }
-
-    if (this.products.length > 5) {
-      this.isProductFilter = true;
-    }
-    else{
-      this.isProductFilter = false;
-    }
+    this.products.length > 0 ? this.isLabware = true : this.isLabware = false;
+    this.products.length > 5 ? this.isProductFilter = true : this.isProductFilter = false;
   }
 
   onNextStep() {
@@ -177,42 +153,33 @@ export class ShellComponent {
     this.stepsItems = [...this.stepsItems, newItem];
   }
 
-  showContextMenu(event: MouseEvent, item: MenuItem, index: number) {
+  showStepContextMenu(event: MouseEvent, item: MenuItem, index: number) {
       this.selectedItemIndex = index;
       if (event.target) {
         this.targetStep = event.target as HTMLElement; // Store the target element  
       }
-      this.contextMenu.show(event); // Show the context menu
+      this.stepContextMenu.show(event); // Show the context menu
       event.preventDefault(); // Prevent default context menu
   }
 
-  clearTarget() {
+  showLabwareContextMenu(e: MouseEvent, selectedProduct: Product){
+    e.preventDefault();
+    this.actions = this.labwareActionsService.getActions(selectedProduct, this.products);
+    this.targetLabware = e.target as HTMLElement;
+    this.labwareContextMenu.show(e);
+  }
+
+  clearTargetStep() {
     this.targetStep = undefined; // Clear the target variable
+  }
+
+  clearTargetLabware() {
+    this.targetLabware = undefined; // Clear the target variable
   }
 
   deleteItem(index: number) {
       if (index > -1) {
           this.stepsItems.splice(index, 1); // Remove item from array
       }
-  }
-
-  onRightClick(event: any, menu: any) {
-    event.preventDefault(); // Prevent the default browser context menu
-    event.stopPropagation(); // Prevent the event from propagating further
-
-    // Get the clicked item by calculating its index
-    const listboxElement = event.target as HTMLElement;
-    const parentList = listboxElement.closest('.p-listbox-list');
-    const childElements = Array.from(parentList?.children || []);
-    const index = childElements.indexOf(listboxElement.closest('.p-listbox-item')!);
-    let selectedProduct = this.products[index];
-      
-    this.getActions(selectedProduct);
-    
-    menu.toggle(event); // Display menu at the cursor
-  }
-
-  getActions(selectedProduct: Product): void {
-    this.actions = this.labwareActionsService.getActions(selectedProduct, this.products);
   }
 }

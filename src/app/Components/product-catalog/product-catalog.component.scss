@@ -27,3 +27,6 @@
     padding: 10px !important;
 }
 
+:host ::ng-deep .ml-5 {
+    margin-left: 5px;
+}

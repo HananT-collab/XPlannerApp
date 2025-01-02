@@ -7,7 +7,6 @@ export interface Product {
     image?: string;
     price?: string;
     quantity?: string;
-    intQty?: number;
     category?: string;
     model?: string;
     electricalRequirements?: string;

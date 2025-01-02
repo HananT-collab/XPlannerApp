@@ -48,8 +48,10 @@
             </ng-template>
             <ng-template pTemplate="body" let-product>
                 <tr>
-                    <td><p-button icon="pi pi-plus" (onClick)="introduceItem(product)" /></td>
-                    <td><p-button icon="pi pi-minus" *ngIf="product.isIntroduced" (onClick)="unintroduceItem(product)" /></td>
+                    <td>
+                        <p-button icon="pi pi-plus" (onClick)="introduceItem(product)" />
+                        <p-button icon="pi pi-minus ml-5" *ngIf="product.isIntroduced" (onClick)="unintroduceItem(product)" />
+                    </td>
                     <td>{{product.name}}</td>
                     <td>{{product.quantity}}</td>
                     <td>{{product.price}}</td>
