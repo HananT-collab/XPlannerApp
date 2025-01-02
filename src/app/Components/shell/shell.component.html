@@ -1,19 +1,5 @@
 <div id="x-shell-header" class="card"> 
-    <!-- <p-megaMenu [model]="leftMegaMenuItems" styleClass="flex">
-        <ng-template pTemplate="start" class="x-float-left x-dflex">
-            
-        </ng-template>
-    </p-megaMenu> -->
-
-    <img src="../../../assets/XPlannerLogoNegative.svg"  class="main-logo mr-2 mt-15" />  
-
-    <!-- <div class="ml-25 mt-25 x-float-right">
-        <p-megaMenu [model]="rightMegaMenuItems" styleClass="flex" ></p-megaMenu>
-    </div> -->
-
-    <!-- <div class="ml-50 mt-18 x-float-right">
-        <p-avatar icon="pi pi-user" styleClass="mr-2" size="normal" title="{{this.userName}}"></p-avatar>
-    </div> -->
+    <img src="../../../assets/XPlannerLogoNegative.svg"  class="main-logo mr-2 mt-15" />
 </div>
 
 <div id="x-shell-body" class="x-dock-window">
@@ -21,6 +7,7 @@
     <!-- smart canvas is show by default -->
     <x-smart-canvas *ngIf="smartCanvasVisible"></x-smart-canvas>
     
+    <p-contextMenu #contextMenu [model]="contextMenuItems" [target]="targetStep" (onHide)="clearTarget()"></p-contextMenu>
     <!-- to do: hide sidebar -->
     <p-sidebar #rightSideBar [visible]="true" [modal]="false" position="right">
         <p-tabView>
@@ -28,17 +15,17 @@
                 <div>
                     <p-button icon="pi pi-plus" class="br-none full-width-button" label="Next step" (onClick)="this.onNextStep()"></p-button>
                 </div>
-                <!-- <x-step-accordion></x-step-accordion> -->
                 <p-accordion>
-                    <p-accordionTab #stepsAccordion [header]="step.title" *ngFor="let step of this.stepsItems"></p-accordionTab>
-                    <!-- <p-contextmenu [target]="stepsAccordion" [model]="stepsAccordionItems" /> -->
+                    <p-accordionTab *ngFor="let step of this.stepsItems;let i = index"
+                                    [header]="step.title" 
+                                    (contextmenu)="showContextMenu($event, step, i)">
+                    </p-accordionTab>
                 </p-accordion>
             </p-tabPanel>
             <p-tabPanel header="Labware">
                 <div class="br-none">
                     <p-button icon="pi pi-plus" class="br-none full-width-button" label="Introduce Labware" (onClick)="this.onMenuItemClick('openProductCatalog')"></p-button>
                 </div>
-                
                 <p-listbox
                     #labwareContextMenu
                     *ngIf="isLabware"

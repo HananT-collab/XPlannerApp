@@ -38,7 +38,6 @@ import { ProductCatalogComponent } from './Components/product-catalog/product-ca
 import { ShellComponent } from './Components/shell/shell.component';
 import { ContentService } from './Services/ContentService/content.service';
 
-
 const appRoutes: Routes = [
   // { path: 'here', redirectTo: '/here', pathMatch: 'full' },
   // { path: 'there', redirectTo: '/there', pathMatch: 'full' },

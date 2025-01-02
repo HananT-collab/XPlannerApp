@@ -3,6 +3,7 @@ import { MegaMenuItem, MenuItem } from 'primeng/api';
 import { ProductCatalogComponent } from '../product-catalog/product-catalog.component';
 import { Product } from 'src/app/Model/product';
 import { LabwareActionsService } from 'src/app/Services/LabwareActionsService/labware-actions.service';
+import { ContextMenu } from 'primeng/contextmenu';
 
 @Component({
   selector: 'x-shell',
@@ -23,7 +24,7 @@ export class ShellComponent {
   
   expModeOptions: any[] = [{ label: 'Edit', value: 'Edit' }, { label: 'View', value: 'View' }];
   actions: MenuItem[] = [];
-  stepsAccordionItems: MenuItem[]= [];
+  selectedItemIndex: number = -1;
   expMode: string = 'Edit';
   
   sidebarVisible: boolean = true;
@@ -37,6 +38,7 @@ export class ShellComponent {
   isProductFilter: boolean = false;
   isLabware: boolean = false;
   @ViewChild(ProductCatalogComponent) productCatalog!: ProductCatalogComponent;
+  @ViewChild('contextMenu') contextMenu!: ContextMenu;
   labwareActionsService: LabwareActionsService = new LabwareActionsService();
 
   positionOptions = [
@@ -66,7 +68,15 @@ export class ShellComponent {
 
   leftSideBarItems: MenuItem[] | undefined;
 
+  targetStep!: HTMLElement | undefined;
   stepsItems: MenuItem[] = [];
+  contextMenuItems = [
+      {
+          label: 'Delete',
+          icon: 'pi pi-times',
+          command: () => this.deleteItem(this.selectedItemIndex)
+      }
+  ];
 
   ngOnInit() {  
     this.rightMegaMenuItems = [
@@ -165,7 +175,26 @@ export class ShellComponent {
     const currStep = this.stepsItems.length + 1;
     const newItem: MenuItem = { label: `Step ${currStep}`, title: `Step ${currStep}` }
     this.stepsItems = [...this.stepsItems, newItem];
-  } 
+  }
+
+  showContextMenu(event: MouseEvent, item: MenuItem, index: number) {
+      this.selectedItemIndex = index;
+      if (event.target) {
+        this.targetStep = event.target as HTMLElement; // Store the target element  
+      }
+      this.contextMenu.show(event); // Show the context menu
+      event.preventDefault(); // Prevent default context menu
+  }
+
+  clearTarget() {
+    this.targetStep = undefined; // Clear the target variable
+  }
+
+  deleteItem(index: number) {
+      if (index > -1) {
+          this.stepsItems.splice(index, 1); // Remove item from array
+      }
+  }
 
   onRightClick(event: any, menu: any) {
     event.preventDefault(); // Prevent the default browser context menu
