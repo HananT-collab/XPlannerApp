@@ -97,6 +97,11 @@
     padding: 0;
 }
 
+:host ::ng-deep .p-menuitem :hover {
+    background-color: #4CAF50;
+    color: black;
+}
+
 :host ::ng-deep .p-listbox-list-wrapper, .p-listbox-list {
     background: #282b34 !important;
     background-color: #282b34 !important;
@@ -109,4 +114,9 @@
 
 .d-grid {
     display: grid;
+}
+
+::ng-deep .p-listbox-list-wrapper {
+    max-height: 100% !important; /* Set max height */
+    overflow-y: auto;  /* Enable vertical scrolling */
 }

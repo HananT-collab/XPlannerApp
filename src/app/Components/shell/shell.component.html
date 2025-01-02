@@ -35,7 +35,9 @@
                     [metaKeySelection]="false" 
                     [checkbox]="false"
                     [filter]="isProductFilter" 
-                    [multiple]="true" optionLabel="name">
+                    [multiple]="true" 
+                    optionLabel="name"
+                    [style]="{'max-height': '300px'}">
                     <ng-template let-product pTemplate="item">
                         <div (contextmenu)="showLabwareContextMenu($event, product)">
                             <span class="fs-12">{{product.name}}</span>
