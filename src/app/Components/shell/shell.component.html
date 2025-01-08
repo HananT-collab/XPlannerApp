@@ -8,7 +8,19 @@
     <x-smart-canvas *ngIf="smartCanvasVisible"></x-smart-canvas>
     
     <p-contextMenu #stepContextMenu [model]="stepContextMenuItems" [target]="targetStep" (onHide)="clearTargetStep()"></p-contextMenu>
-    <p-contextMenu #labwareContextMenu [model]="actions" [target]="targetLabware" (onHide)="clearTargetLabware()"></p-contextMenu>
+    <!-- <p-contextMenu #labwareContextMenu [model]="actions" [target]="targetLabware" (onHide)="clearTargetLabware()"></p-contextMenu> -->
+
+    <p-contextMenu #labwareContextMenu [model]="actions" (onHide)="clearTargetLabware()" [target]="targetLabware">
+        <ng-template #item let-item>
+            <a pRipple class="flex items-center p-contextmenu-item-link">
+                <span [class]="item.icon"></span>
+                <span class="ml-2">{{ item.label }}</span>
+                <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
+                <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                <i *ngIf="item.items" class="pi pi-angle-right ml-auto"></i>
+            </a>
+        </ng-template>
+    </p-contextMenu>
     <!-- to do: hide sidebar -->
     <p-sidebar #rightSideBar [visible]="true" [modal]="false" position="right">
         <p-tabView>
@@ -39,8 +51,17 @@
                     optionLabel="name"
                     [style]="{'max-height': '300px'}">
                     <ng-template let-product pTemplate="item">
-                        <div (contextmenu)="showLabwareContextMenu($event, product)">
-                            <span class="fs-12">{{product.name}}</span>
+                        <div >
+                            <span class="fs-15 va-sub d-inline-flex w-60" (contextmenu)="showLabwareContextMenu($event, product)" >{{product.name}}</span>
+                            <p-inputNumber [(ngModel)]="product.qtySelected" size="small" [showButtons]="true" buttonLayout="horizontal"  class="x-float-right"
+                            inputId="horizontal" spinnerMode="horizontal" [inputStyle]="{ width: '40px', textAlign: 'center'}" [min]="1" [max]="99">
+                                <ng-template #incrementbuttonicon>
+                                    <span class="pi pi-plus"></span>
+                                </ng-template>
+                                <ng-template #decrementbuttonicon>
+                                    <span class="pi pi-minus"></span>
+                                </ng-template>
+                            </p-inputNumber>
                         </div>
                     </ng-template>
                 </p-listbox>

@@ -6,18 +6,23 @@ export interface Product {
     description?: string;
     image?: string;
     price?: string;
-    quantity?: string;
+    quantity: string;
     category?: string;
     model?: string;
     electricalRequirements?: string;
-    isDevice?: boolean;
-    isTool?: boolean;
-    isMaterial?: boolean;
-    isVessel?: boolean;
     isIntroduced?: boolean;
-    stateOfMatter?: stateOfMatter
+    stateOfMatter?: stateOfMatter;
+    type?: productType;
+    qtySelected?: number;
+    actions?: productAction[];
+
+    getProductActions(): void 
 }
 
+export interface productAction {
+  id: string,
+  description: string
+}
 
 export enum stateOfMatter {
   Liquid,
@@ -26,6 +31,14 @@ export enum stateOfMatter {
   Plasma,
   Powder
 }
+
+export enum productType {
+  Material,
+  Device,
+  Tool,
+  Vessel
+}
+
 
 
 // id: 'T2605',

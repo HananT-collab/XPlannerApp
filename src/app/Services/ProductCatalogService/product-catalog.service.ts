@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Product, productType, stateOfMatter } from 'src/app/Model/product';
 
 @Injectable({
   providedIn: 'root'
@@ -7,20 +8,20 @@ import { Injectable } from '@angular/core';
 export class ProductCatalogService {
   constructor() { }
 
-    getPseudoProductsData() {
+    getPseudoProductsData(): Product[] {
         return [
             {
-            id: 'T2605',
-            code: 'T2605',
-            name: 'StableCell™ Trypsin Solution',
-            shortDescription: 'Trypsin-EDTA solution',
-            description: '5X, sterile-filtered, BioReagent, suitable for cell culture, 2.5 g porcine trypsin and 0.2 g EDTA, 4Na per liter of Hanks′ Balanced Salt Solution with phenol red',
-            image: 'https://www.sigmaaldrich.com/deepweb/assets/sigmaaldrich/product/images/330/948/c793511e-7558-4379-be7a-ce53a43a2a7d/640/c793511e-7558-4379-be7a-ce53a43a2a7d.jpg',
-            price: '108 ',
-            category: 'Bioprocessing Liquid Cell Culture Media & Buffers',
-            quantity: '100ML',
-            isMaterial: true,
-            stateOfMatter: 0
+                id: 'T2605',
+                code: 'T2605',
+                name: 'StableCell™ Trypsin Solution',
+                shortDescription: 'Trypsin-EDTA solution',
+                description: '5X, sterile-filtered, BioReagent, suitable for cell culture, 2.5 g porcine trypsin and 0.2 g EDTA, 4Na per liter of Hanks′ Balanced Salt Solution with phenol red',
+                image: 'https://www.sigmaaldrich.com/deepweb/assets/sigmaaldrich/product/images/330/948/c793511e-7558-4379-be7a-ce53a43a2a7d/640/c793511e-7558-4379-be7a-ce53a43a2a7d.jpg',
+                price: '108 ',
+                category: 'Bioprocessing Liquid Cell Culture Media & Buffers',
+                quantity: '100ML',
+                type: productType.Material,
+                stateOfMatter: stateOfMatter.Liquid
             },
             {
                 id: 'D6429',
@@ -32,8 +33,8 @@ export class ProductCatalogService {
                 price: '233.00 ₪',
                 category: 'Classical Media & Buffers',
                 quantity: '500ML',
-                isMaterial: true,
-                stateOfMatter: 0
+                type: productType.Material,
+                stateOfMatter: stateOfMatter.Liquid
             },
             {
                 id: 'TSSWB27',
@@ -47,7 +48,7 @@ export class ProductCatalogService {
                 quantity: '27L',
                 model: 'Precision SWB 27',
                 electricalRequirements: 'Global Voltage 100/115 V 200/230 V 50/60 Hz',
-                isDevice: true,
+                type: productType.Tool
             },
             {
                 id: 'EIS750',
@@ -60,7 +61,7 @@ export class ProductCatalogService {
                 category: 'Incubation Chamber',
                 quantity: '750L',
                 model: 'EIS750',
-                isDevice: true
+                type: productType.Device
             },
             {
                 id: 'IX83P2ZF',
@@ -73,7 +74,7 @@ export class ProductCatalogService {
                 category: 'Microscopes',
                 quantity: '',
                 model: 'IXplore Pro',
-                isDevice: true
+                type: productType.Device
             },
             {
                 id: 'IQLAADGAAGFAQPMBJG',
@@ -86,7 +87,7 @@ export class ProductCatalogService {
                 category: 'Microscopes',
                 quantity: '',
                 model: 'Nicolet™ iN5 FTIR Microscope',
-                isDevice: true
+                type: productType.Device
             },
             {
                 id: '140675',
@@ -99,7 +100,7 @@ export class ProductCatalogService {
                 category: 'Cell Culture Microplates',
                 quantity: '6 well',
                 model: 'Nicolet™ iN5 FTIR Microscope',
-                isVessel: true,
+                type: productType.Vessel
             },
             {
                 id: '4641100N',
@@ -112,7 +113,7 @@ export class ProductCatalogService {
                 category: 'Manual Single Channel Pipettes',
                 quantity: '100 to 1000 μL',
                 model: 'Finnpipette™ F1 Variable Volume Pipettes',
-                isVessel: true
+                type: productType.Vessel
             },
             {
                 id: 'C0045C',
@@ -125,11 +126,10 @@ export class ProductCatalogService {
                 category: 'Primary Cell Culture › Fibroblast Cell Culture',
                 quantity: '1 vial',
                 model: 'Human Dermal Fibroblasts, neonatal (HDFn)',
-                isMaterial: true,
-                stateOfMatter: 0
+                type: productType.Material,
+                stateOfMatter: stateOfMatter.Liquid
             },
-            
-        ]
+        ] as Product[]
     }
 
     getFakeProductsData() {   
@@ -1339,7 +1339,7 @@ export class ProductCatalogService {
         return Promise.resolve(this.getFakeProductsData().slice(0, 10));
     }
 
-    getProducts() {
+    getProducts(): Promise<Product[]>{
         return Promise.resolve(this.getPseudoProductsData());
     }
 

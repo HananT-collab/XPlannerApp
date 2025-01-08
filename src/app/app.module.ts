@@ -37,6 +37,7 @@ import { SmartCanvasComponent } from './Components/smart-canvas/smart-canvas.com
 import { ProductCatalogComponent } from './Components/product-catalog/product-catalog.component';
 import { ShellComponent } from './Components/shell/shell.component';
 import { ContentService } from './Services/ContentService/content.service';
+import { BadgeModule } from 'primeng/badge';
 
 const appRoutes: Routes = [
   // { path: 'here', redirectTo: '/here', pathMatch: 'full' },
@@ -60,7 +61,6 @@ const appRoutes: Routes = [
     MenubarModule,
     MegaMenuModule,
     DockModule,
-    BrowserAnimationsModule,
     DividerModule,
     SelectButtonModule,
     AvatarModule,
@@ -83,7 +83,9 @@ const appRoutes: Routes = [
     AccordionModule,
     ListboxModule,
     MenuModule,
-    ContextMenuModule
+    ContextMenuModule,
+    BrowserAnimationsModule,
+    BadgeModule
   ],
   exports: [],
   providers: [ContentService],

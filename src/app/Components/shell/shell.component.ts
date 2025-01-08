@@ -1,9 +1,10 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { MegaMenuItem, MenuItem } from 'primeng/api';
 import { ProductCatalogComponent } from '../product-catalog/product-catalog.component';
-import { Product } from 'src/app/Model/product';
+import { Product, productAction } from 'src/app/Model/product';
 import { LabwareActionsService } from 'src/app/Services/LabwareActionsService/labware-actions.service';
 import { ContextMenu } from 'primeng/contextmenu';
+import { Action } from 'rxjs/internal/scheduler/Action';
 
 @Component({
   selector: 'x-shell',
@@ -23,7 +24,7 @@ export class ShellComponent {
   labwareDockPosition = 'left';
   
   expModeOptions: any[] = [{ label: 'Edit', value: 'Edit' }, { label: 'View', value: 'View' }];
-  actions: MenuItem[] = [];
+  actions: productAction[] = [];
   selectedItemIndex: number = -1;
   expMode: string = 'Edit';
   
@@ -134,12 +135,27 @@ export class ShellComponent {
 
   onProductIntroduced(introducedProduct: Product) {
     let productFound = this.products.find(x => x.code == introducedProduct.code)
+    if (!introducedProduct.qtySelected) {
+      introducedProduct.qtySelected = 1;
+    }
+
+    if (productFound) {
+      introducedProduct.qtySelected = introducedProduct.qtySelected + 1;
+      return;
+    }
+    
     this.products = [...this.products, introducedProduct];
     this.products.length > 0 ? this.isLabware = true : this.isLabware = false;
     this.products.length > 5 ? this.isProductFilter = true : this.isProductFilter = false;
   }
 
   onProductUnintroduced(unintroducedProduct: Product) {
+
+    if (unintroducedProduct.qtySelected && unintroducedProduct.qtySelected > 1) {
+      unintroducedProduct.qtySelected = unintroducedProduct.qtySelected - 1;
+      return;
+    }
+
     let prodIdx = this.products.findIndex(x => x.code == unintroducedProduct.code) 
     this.products.splice(prodIdx, 1);
     this.products = [...this.products];
@@ -164,7 +180,6 @@ export class ShellComponent {
 
   showLabwareContextMenu(e: MouseEvent, selectedProduct: Product){
     e.preventDefault();
-    this.actions = this.labwareActionsService.getActions(selectedProduct, this.products);
     this.targetLabware = e.target as HTMLElement;
     this.labwareContextMenu.show(e);
   }

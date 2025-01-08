@@ -31,8 +31,11 @@ export class ProductCatalogComponent {
   constructor(private productCatalogService: ProductCatalogService){ }
 
   ngOnInit() {
-    this.productCatalogService.getProducts().then((data) => {
-        this.products = data;
+    this.productCatalogService.getProducts().then((products) => {
+      this.products = products;
+        this.products.forEach(p => {
+          p.getProductActions();
+        });
     });
   }
 
@@ -68,7 +71,10 @@ export class ProductCatalogComponent {
   }
 
   unintroduceItem(product: Product){
-    product.isIntroduced = false;
+    if (product.qtySelected && product.qtySelected == 1) {
+      product.isIntroduced = false;  
+    }
+    
     this.productUnintroduced.emit(product);
   }
 }

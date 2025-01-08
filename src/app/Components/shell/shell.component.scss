@@ -116,7 +116,11 @@
     display: grid;
 }
 
-::ng-deep .p-listbox-list-wrapper {
+:host ::ng-deep .p-listbox-list-wrapper {
     max-height: 100% !important; /* Set max height */
     overflow-y: auto;  /* Enable vertical scrolling */
+}
+
+:host ::ng-deep .va-sub {
+    vertical-align: sub;
 }

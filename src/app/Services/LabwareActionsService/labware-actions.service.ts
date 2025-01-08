@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { Product, stateOfMatter } from 'src/app/Model/product';
+import { Product, productType, stateOfMatter } from 'src/app/Model/product';
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +12,17 @@ export class LabwareActionsService {
   actions: MenuItem[] = [];
 
   getActions(product: Product, introducedProducts: Product[]): MenuItem[] {
-    if (product.isMaterial) {
+    if (product.type == productType.Material) {
       this.actions = this.getMaterialActions(product, introducedProducts);
     }
-    else if (product.isVessel) {
+    else if (product.type == productType.Vessel) {
       this.actions = this.getVesselActions(product, introducedProducts);
     }
-    else if (product.isTool)
+    else if (product.type == productType.Tool)
     {
       this.actions = this.getToolActions(product, introducedProducts);
     }
-    else if (product.isDevice) {
+    else if (product.type == productType.Device) {
       this.actions = this.getDeviceActions(product, introducedProducts);
     }
     return this.actions;
@@ -55,9 +55,29 @@ export class LabwareActionsService {
     let action: MenuItem; 
 
     products.forEach(product => {
-      if (product.isVessel) {
+      if (product.type == productType.Vessel) {
         action = {
           label: 'Pour into',
+          Items: [
+            {
+              label: product.name
+            }
+          ]
+        },
+        actions.push(action);
+      }
+
+      if (product.type = productType.Tool && product.shortDescription?.search("syringe")){
+        action = {
+          label: 'Aspirate by',
+          Items: [
+            {
+              label: product.name
+            }
+          ]
+        },
+        action = {
+          label: 'Aspirate by',
           Items: [
             {
               label: product.name
